@@ -115,9 +115,10 @@ b = 6 ;    %b表示潜艇短轴
 c = 1500;
 r = 200;%离潜艇中心点 200 m 处
 %theta = linspace(1,180,180);
-theta = 0;
+theta = 90;
 %阵元A
 %阵元A的参数
+
 A1 = 0.4*0.2* a/sqrt(  (1+a.*a./(b*r))*(1+b/r) );
 tau1 = a.*cos(theta*pi/180)/c;
 phi1 = pi/4;
@@ -131,7 +132,7 @@ phi6 = pi/4;
 h = 6;d = 10;e = 3;
 l = 10;%舰桥中心与 艇体中心相距 10 m
 A3 = h*d*e*sqrt(l/pi)./(2* (e.^2 .* (sin(theta*pi/180).^2) + d.^2.*(cos(theta*pi/180).^2)).^(3/4)  );
-tau3 = -l*cos(theta*pi/180) + sqrt(e.^2.*(sin(theta*pi/180).^2) + d.^2.*(cos(theta*pi/180).^2))/c;
+tau3 = (l.*cos(theta*pi/180) + sqrt(e.^2 .* (sin(theta*pi/180).^2) + d.^2 .* (cos(theta*pi/180).^2)) )/ c;
 phi3 = 0;
 
 %阵元B、D、E
@@ -153,7 +154,7 @@ fs = 100000; % 采样频率，可根据需要调整，这里设置为100kHz
 t = 0:1/fs:1.25e-3; % 时间向量，对应脉宽1.25ms
 fc = 30000; % 信号频率为30kHz
 
-t_scale = 0:1/fs:0.2;
+t_scale = 0:1/fs:0.2-1/fs;
 
 % 生成CW脉冲信号
 cw_pulse = 3*cos(2*pi*fc*t);
@@ -181,7 +182,7 @@ CW_2 = [zeros(1,delay2_n) , CW_2, zeros(1,length(t_scale)-length(t)-delay2_n)];
 %阵元C
 delay3_n = round(tau3/(1/fs)); 
 CW_3 = A3.*3.*cos(2*pi*fc*t+phi3);
-CW_3 = [zeros(1,abs(delay3_n)) , CW_3, zeros(1,length(t_scale)-length(t)-abs(delay3_n))];
+CW_3 = [zeros(1,delay3_n) , CW_3, zeros(1,length(t_scale)-length(t)-delay3_n)];
 figure
 plot(t_scale, CW_3);
 xlabel('时间 (s)');ylabel('幅度');title('反射的回波信号');grid on;axis([0,0.2,-50,50]);
