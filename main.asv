@@ -68,15 +68,13 @@ B = 1000;
 z0 = 1000;
 a = 2*(z - z0)/B;
 c = c0*(1 + e*(exp(-a)-(1 - a)));
-figure(3)
-plot(c,z);grid on;
-xlabel('声速/(m·s⁻¹)');ylabel('深度/m');title('深海声道');
-set(gca,'YDir','reverse');
-
-%% 绘制声线轨迹
-bellhopM( 'test_ray' ) %figure4
-
-%% 绘制脉冲响应 此处存在问题
+plot(c,z)
+grid on
+xlabel('声速/(m·s⁻¹)')
+ylabel('深度/m')
+title('深海声道')
+set(gca,'YDir','reverse')
+%% 
 
 bellhopM( 'test' )
 load test.mat
@@ -87,7 +85,7 @@ amp1=reshape(AArr,m,n);
 amp = abs(amp1); %取模  
 x = delay(m,:); %获取第50个接收机的时延和幅值
 y = amp(m,:);
-figure(5)
+figure(3)
 stem(x,y)
 grid on
 xlabel('相对时延/s')
@@ -100,7 +98,7 @@ Amp_Delay(:,all(Amp_Delay==0,1))=[]; %去掉0值
 Amp_Delay=sortrows(Amp_Delay',1);  %按照时延从小到大排序
 normDelay = Amp_Delay(:,1)-Amp_Delay(1,1);%归一化时延
 normAmp = Amp_Delay(:,2)/Amp_Delay(1,2);%归一化幅度
-figure(6)
+figure(4)
 stem(normDelay,normAmp,'^')
 grid on
 xlabel('相对时延/s')
