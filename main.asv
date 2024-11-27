@@ -68,13 +68,15 @@ B = 1000;
 z0 = 1000;
 a = 2*(z - z0)/B;
 c = c0*(1 + e*(exp(-a)-(1 - a)));
-plot(c,z)
-grid on
-xlabel('声速/(m·s⁻¹)')
-ylabel('深度/m')
-title('深海声道')
-set(gca,'YDir','reverse')
-%% 
+figure(3)
+plot(c,z);grid on;
+xlabel('声速/(m·s⁻¹)');ylabel('深度/m');title('深海声道');
+set(gca,'YDir','reverse');
+
+%% 绘制声线轨迹
+bellhopM( 'test_ray' ) %figure4
+
+%% 绘制脉冲响应 此处存在问题
 
 bellhopM( 'test' )
 load test.mat
@@ -85,7 +87,7 @@ amp1=reshape(AArr,m,n);
 amp = abs(amp1); %取模  
 x = delay(m,:); %获取第50个接收机的时延和幅值
 y = amp(m,:);
-figure(3)
+figure(5)
 stem(x,y)
 grid on
 xlabel('相对时延/s')
@@ -98,10 +100,106 @@ Amp_Delay(:,all(Amp_Delay==0,1))=[]; %去掉0值
 Amp_Delay=sortrows(Amp_Delay',1);  %按照时延从小到大排序
 normDelay = Amp_Delay(:,1)-Amp_Delay(1,1);%归一化时延
 normAmp = Amp_Delay(:,2)/Amp_Delay(1,2);%归一化幅度
-figure(4)
+figure(6)
 stem(normDelay,normAmp,'^')
 grid on
 xlabel('相对时延/s')
 ylabel('归一化幅度')
 title('归一化冲激响应')
+
+%% 目标回波
+%%亮点参数
+%参考文献：一种水下多亮点目标模拟器的设计 宋绪栋,刘鹏仲
+a = 70 ;    %a表示潜艇长轴
+b = 6 ;    %b表示潜艇短轴
+c = 1500;
+r = 200;%离潜艇中心点 200 m 处
+%theta = linspace(1,180,180);
+theta = 0;
+%阵元A
+%阵元A的参数
+A1 = 0.4*0.2* a/sqrt(  (1+a.*a./(b*r))*(1+b/r) );
+tau1 = a.*cos(theta*pi/180)/c;
+phi1 = pi/4;
+
+%阵元F
+A6 = 0.4*0.2* a/sqrt(  (1+a.*a./(b*r))*(1+b/r) );
+tau6 = -a.*cos(theta*pi/180)/c;
+phi6 = pi/4;
+
+%阵元C
+h = 6;d = 10;e = 3;
+l = 10;%舰桥中心与 艇体中心相距 10 m
+A3 = h*d*e*sqrt(l/pi)./(2*  (e*e.*sin(theta*pi/180).^2 + d.^2.*cos(theta*pi/180).^2).^(3/4)  );
+tau3 = -l*cos(theta*pi/180) + sqrt(e.^2.*(sin(theta*pi/180).^2) + d.^2.*(cos(theta*pi/180).^2))/c;
+phi3 = 0;
+
+%阵元B、D、E
+A2 = (a.^2.*(sin(theta*pi/180).^2)  + b.^2.*(cos(theta*pi/180).^2) )/2*a;
+tau2 = -sqrt(a.^2.*(cos(theta*pi/180).^2) + b.^2.*(sin(theta*pi/180).^2))/c;
+phi2 = 0;
+
+A4 = (a.^2.*(sin(theta*pi/180).^2)  + b.^2.*(cos(theta*pi/180).^2) )/2*a;
+tau4 = -sqrt(a.^2.*(cos(theta*pi/180).^2)+ b.^2.*(sin(theta*pi/180).^2))/c;
+phi4 = 0;
+
+A5 = (a.^2.*(sin(theta*pi/180).^2)  + b.^2.*(cos(theta*pi/180).^2) )/2*a;
+tau5 = -sqrt(a.^2.*(cos(theta*pi/180).^2)+ b.^2.*(sin(theta*pi/180).^2))/c;
+phi5 = 0;
+
+%% 信号频率为 30 kHz,脉宽为 1.25 ms的CW信号
+% 定义参数
+fs = 100000; % 采样频率，可根据需要调整，这里设置为100kHz
+t = 0:1/fs:1.25e-3; % 时间向量，对应脉宽1.25ms
+fc = 30000; % 信号频率为30kHz
+
+t_scale = 0:1/fs:0.2;
+
+% 生成CW脉冲信号
+cw_pulse = cos(2*pi*fc*t);
+cw_pulse = [cw_pulse zeros(1,length(t_scale)-length(t))];
+% 绘制信号波形
+figure(7)
+plot(t_scale, cw_pulse);
+xlabel('时间 (s)');ylabel('幅度');title('CW脉冲信号波形');grid on;axis([0,0.2,-50,50]);
+
+%% 回波信号
+%阵元A
+delay1_n = round(tau1/(1/fs)); %亮点A造成的延迟
+CW_1 = A1.*3*cos(2*pi*fc*t+phi1);%亮点A造成的幅度变化
+CW_1 = [zeros(1,delay1_n) , CW_1, zeros(1,length(t_scale)-length(t)-delay1_n)];
+figure(8)
+plot(t_scale*1000, CW_1);
+xlabel('时间/ms');ylabel('幅度');title('反射的回波信号');grid on;axis([0,200,-50,50]);
+
+%阵元B
+delay2_n = round(tau2/(1/fs)); %亮点B造成的延迟
+CW_2 = A2.*10.*cos(2*pi*fc*t+phi2);%亮点B造成的幅度变化
+CW_2 = [zeros(1,delay2_n) , CW_2, zeros(1,length(t_scale)-length(t)-delay2_n)];
+
+%阵元C
+delay3_n = round(tau3/(1/fs)); 
+CW_3 = A3.*10.*cos(2*pi*fc*t+phi3);
+CW_3 = [zeros(1,delay3_n) , CW_3, zeros(1,length(t_scale)-length(t)-delay3_n)];
+
+%阵元D
+delay4_n = round(tau4/(1/fs)); 
+CW_4 = A4.*10.*cos(2*pi*fc*t+phi4);
+CW_4 = [zeros(1,delay4_n) , CW_4, zeros(1,length(t_scale)-length(t)-delay4_n)];
+
+%阵元E
+delay5_n = round(tau5/(1/fs)); 
+CW_5 = A5.*10.*cos(2*pi*fc*t+phi5);
+CW_5 = [zeros(1,delay5_n) , CW_5, zeros(1,length(t_scale)-length(t)-delay5_n)];
+
+%阵元F
+delay6_n = round(tau6/(1/fs)); 
+CW_6 = A6.*10.*cos(2*pi*fc*t+phi6);
+CW_6 = [zeros(1,delay6_n) , CW_6, zeros(1,length(t_scale)-length(t)-abs(delay6_n))];
+figure
+plot(t_scale, CW_6);
+xlabel('时间 (s)');ylabel('幅度');title('反射的回波信号');grid on;axis([0,0.2,-50,50]);
+
+
+
 
