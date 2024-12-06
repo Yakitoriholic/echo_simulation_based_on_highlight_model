@@ -55,19 +55,22 @@
 
  __________________________________________________________________________
 
- Number of Receiver depths, Rz =            1
+ Number of Receiver depths, Rz =          501
  Receiver depths, Rz (m)
-   1000.00    
+   0.00000       10.0000       20.0000       30.0000       40.0000    
+   50.0000       60.0000       70.0000       80.0000       90.0000    
+          ... 
+   5000.00    
 
 
  __________________________________________________________________________
 
- Number of Receiver ranges, Rr =         1001
+ Number of Receiver ranges, Rr =          100
  Receiver ranges, Rr (km)
-   0.00000      0.100000      0.200000      0.300000      0.400000    
-  0.500000      0.600000      0.700000      0.800000      0.900000    
+   0.00000      0.101010      0.202020      0.303030      0.404040    
+  0.505050      0.606061      0.707071      0.808081      0.909091    
           ... 
-   100.000    
+   10.0000    
 
 
  Coherent TL calculation
@@ -76,10 +79,10 @@
  Rectilinear receiver grid: Receivers at Rr( : ) x Rz( : )
  __________________________________________________________________________
 
- Number of beams in elevation   =       100000
+ Number of beams in elevation   =        10000
  Beam take-off angles (degrees)
-  -20.3000      -20.2996      -20.2992      -20.2988      -20.2984    
-  -20.2980      -20.2976      -20.2972      -20.2968      -20.2963    
+  -20.3000      -20.2959      -20.2919      -20.2878      -20.2838    
+  -20.2797      -20.2756      -20.2716      -20.2675      -20.2635    
           ... 
    20.3000    
 
@@ -89,65 +92,65 @@
  Step length,       deltas =   50.00     m
 
  Maximum ray depth, Box%z  =   5500.     m
- Maximum ray range, Box%r  =   101.0    km
+ Maximum ray range, Box%r  =   10.00    km
  No beam shift in effect
 
 
 Tracing beam       1    -20.30
 
  Geometric hat beams                     
- halfwidth  =    13488.479776635557     
- epsilonOpt =  (  0.0000000000000000     ,  2857892490647.5571     )
+ halfwidth  =    1348.7265801315907     
+ epsilonOpt =  (  0.0000000000000000     ,  28573780880.043755     )
  EpsMult    =    1.0000000000000000     
 
-Tracing beam    2001    -19.49
-Tracing beam    4001    -18.68
-Tracing beam    6001    -17.86
-Tracing beam    8001    -17.05
-Tracing beam   10001    -16.24
-Tracing beam   12001    -15.43
-Tracing beam   14001    -14.62
-Tracing beam   16001    -13.80
-Tracing beam   18001    -12.99
-Tracing beam   20001    -12.18
-Tracing beam   22001    -11.37
-Tracing beam   24001    -10.56
-Tracing beam   26001     -9.74
-Tracing beam   28001     -8.93
-Tracing beam   30001     -8.12
-Tracing beam   32001     -7.31
-Tracing beam   34001     -6.50
-Tracing beam   36001     -5.68
-Tracing beam   38001     -4.87
-Tracing beam   40001     -4.06
-Tracing beam   42001     -3.25
-Tracing beam   44001     -2.44
-Tracing beam   46001     -1.62
-Tracing beam   48001     -0.81
-Tracing beam   50001      0.00
-Tracing beam   52001      0.81
-Tracing beam   54001      1.62
-Tracing beam   56001      2.44
-Tracing beam   58001      3.25
-Tracing beam   60001      4.06
-Tracing beam   62001      4.87
-Tracing beam   64001      5.68
-Tracing beam   66001      6.50
-Tracing beam   68001      7.31
-Tracing beam   70001      8.12
-Tracing beam   72001      8.93
-Tracing beam   74001      9.74
-Tracing beam   76001     10.56
-Tracing beam   78001     11.37
-Tracing beam   80001     12.18
-Tracing beam   82001     12.99
-Tracing beam   84001     13.80
-Tracing beam   86001     14.62
-Tracing beam   88001     15.43
-Tracing beam   90001     16.24
-Tracing beam   92001     17.05
-Tracing beam   94001     17.86
-Tracing beam   96001     18.68
-Tracing beam   98001     19.49
+Tracing beam     201    -19.49
+Tracing beam     401    -18.68
+Tracing beam     601    -17.86
+Tracing beam     801    -17.05
+Tracing beam    1001    -16.24
+Tracing beam    1201    -15.43
+Tracing beam    1401    -14.62
+Tracing beam    1601    -13.80
+Tracing beam    1801    -12.99
+Tracing beam    2001    -12.18
+Tracing beam    2201    -11.37
+Tracing beam    2401    -10.56
+Tracing beam    2601     -9.74
+Tracing beam    2801     -8.93
+Tracing beam    3001     -8.12
+Tracing beam    3201     -7.31
+Tracing beam    3401     -6.49
+Tracing beam    3601     -5.68
+Tracing beam    3801     -4.87
+Tracing beam    4001     -4.06
+Tracing beam    4201     -3.25
+Tracing beam    4401     -2.43
+Tracing beam    4601     -1.62
+Tracing beam    4801     -0.81
+Tracing beam    5001      0.00
+Tracing beam    5201      0.81
+Tracing beam    5401      1.63
+Tracing beam    5601      2.44
+Tracing beam    5801      3.25
+Tracing beam    6001      4.06
+Tracing beam    6201      4.87
+Tracing beam    6401      5.69
+Tracing beam    6601      6.50
+Tracing beam    6801      7.31
+Tracing beam    7001      8.12
+Tracing beam    7201      8.93
+Tracing beam    7401      9.75
+Tracing beam    7601     10.56
+Tracing beam    7801     11.37
+Tracing beam    8001     12.18
+Tracing beam    8201     13.00
+Tracing beam    8401     13.81
+Tracing beam    8601     14.62
+Tracing beam    8801     15.43
+Tracing beam    9001     16.24
+Tracing beam    9201     17.06
+Tracing beam    9401     17.87
+Tracing beam    9601     18.68
+Tracing beam    9801     19.49
 
- CPU Time =        25.3    s
+ CPU Time =       0.766    s
