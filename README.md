@@ -1,5 +1,5 @@
-# Breadcrumbsecho_simulation_based_on_highlight_model
-The project simulated the process of transmitting signal and receiving echo based on submarine highlight model in underwater environment.
+# echo_simulation_based_on_highlight_model
+The project simulated the process of transmitting a CW pulse and getting the echo of the submarine based on a highlight model in underwater environment.
 Directories:
 
   Env:deposit many environment files for toolbox used in the project
