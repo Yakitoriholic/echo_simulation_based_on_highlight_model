@@ -1,4 +1,4 @@
-# echo_simulation_based_on_highlight_model
+# echo simulation based on highlight model
 The project simulated the process of transmitting a CW pulse and getting the echo of the submarine based on a highlight model in underwater environment.
 
 Directories:
