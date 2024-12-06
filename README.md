@@ -17,3 +17,7 @@ Files:
 
 The project utlized a toolbox called `Acoustics Toolbox`, can be downloaded on http://oalib.hlsresearch.com/AcousticsToolbox/
 (toolbox edition:2020_11_4)
+
+click the .prj file by matlab then you'll open the project
+
+@author's email: mrsingorxing@gmail.com (feel free to contact)
